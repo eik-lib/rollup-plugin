@@ -1,0 +1,46 @@
+{
+  "name": "rollup-plugin-eik-import-map",
+  "version": "1.0.0",
+  "description": "Rollup plugin that uses Eik defined import map files to transform bare import specifiers to absolute URLs in ES modules",
+  "main": "dist/plugin.cjs.js",
+  "directories": {
+    "dist": "dist"
+  },
+  "scripts": {
+    "test": "tap test/*.mjs --no-coverage",
+    "test:snapshot": "TAP_SNAPSHOT=1 tap test/*.mjs --no-coverage",
+    "lint": "eslint . --ext=mjs,js",
+    "lint:fix": "eslint . --fix --ext=mjs,js",
+    "start": "node --experimental-modules ./example/server.mjs",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trygve-lie/rollup-plugin-esm-import-to-url.git"
+  },
+  "keywords": [
+    "rollup-plugin",
+    "rollup.js",
+    "rollup",
+    "import",
+    "url",
+    "esm"
+  ],
+  "author": "Trygve Lie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trygve-lie/rollup-plugin-esm-import-to-url/issues"
+  },
+  "homepage": "https://github.com/trygve-lie/rollup-plugin-esm-import-to-url#readme",
+  "devDependencies": {
+    "eslint": "7.2.0",
+    "eslint-config-airbnb-base": "14.2.0",
+    "eslint-plugin-import": "2.21.2",
+    "fastify": "^2.15.0",
+    "rollup": "2.3.2",
+    "tap": "14.10.7"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
