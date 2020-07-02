@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-eik-import-map",
+  "name": "@eik/rollup-plugin-import-map",
   "version": "1.0.0",
   "description": "Rollup plugin that uses Eik defined import map files to transform bare import specifiers to absolute URLs in ES modules",
   "main": "dist/plugin.cjs.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trygve-lie/rollup-plugin-esm-import-to-url.git"
+    "url": "git+https://github.com/eik-lib/rollup-plugin-import-map.git"
   },
   "keywords": [
     "rollup-plugin",
@@ -26,12 +26,12 @@
     "url",
     "esm"
   ],
-  "author": "Trygve Lie",
+  "author": "Finn.no",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/trygve-lie/rollup-plugin-esm-import-to-url/issues"
+    "url": "https://github.com/eik-lib/rollup-plugin-import-map/issues"
   },
-  "homepage": "https://github.com/trygve-lie/rollup-plugin-esm-import-to-url#readme",
+  "homepage": "https://github.com/eik-lib/rollup-plugin-import-map#readme",
   "devDependencies": {
     "eslint": "7.2.0",
     "eslint-config-airbnb-base": "14.2.0",
