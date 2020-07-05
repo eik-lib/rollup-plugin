@@ -13,7 +13,7 @@ $ npm install @eik/rollup-plugin-import-map
 ## Usage
 
 ```js
-import eikImportMapPlugin from "rollup-plugin-eik-import-map";
+import eikImportMapPlugin from "@eik/rollup-plugin-import-map";
 
 export default {
   input: "source/main.js",
