@@ -1,0 +1,6 @@
+tap-snapshots
+node_modules
+dist
+tmp
+test/plugin.mjs
+modules
