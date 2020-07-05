@@ -7,7 +7,7 @@ Rollup [Eik](https://eik.dev/) plugin to support the use of import maps to map "
 ## Installation
 
 ```bash
-$ npm install rollup-plugin-eik-import-map
+$ npm install @eik/rollup-plugin-import-map
 ```
 
 ## Usage
@@ -167,10 +167,6 @@ export default {
   },
 };
 ```
-
-## ESM only
-
-This module will only work when the output is ES modules.
 
 ## License
 
