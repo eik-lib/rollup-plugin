@@ -33,9 +33,9 @@
   },
   "homepage": "https://github.com/eik-lib/rollup-plugin-import-map#readme",
   "devDependencies": {
-    "eslint": "7.2.0",
+    "eslint": "7.4.0",
     "eslint-config-airbnb-base": "14.2.0",
-    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-import": "2.22.0",
     "fastify": "2.15.1",
     "rollup": "2.19.0",
     "tap": "14.10.7",
