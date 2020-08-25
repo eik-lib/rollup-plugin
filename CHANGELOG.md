@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/eik-lib/rollup-plugin-import-map/compare/v1.0.1...v1.0.2) (2020-08-25)
+
+
+### Bug Fixes
+
+* always run build ([4d294fc](https://github.com/eik-lib/rollup-plugin-import-map/commit/4d294fca5834d0d1aa66a048917898d32439ecff))
+
 ## [1.0.1](https://github.com/eik-lib/rollup-plugin-import-map/compare/v1.0.0...v1.0.1) (2020-08-25)
 
 
