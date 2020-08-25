@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Rollup plugin that uses Eik defined import map files to transform bare import specifiers to absolute URLs in ES modules",
   "main": "dist/plugin.cjs.js",
+  "files": [
+    "src",
+    "dist"
+  ],
   "directories": {
     "dist": "dist"
   },
