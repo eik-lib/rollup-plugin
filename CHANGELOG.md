@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/eik-lib/rollup-plugin-import-map/compare/v1.0.0...v1.0.1) (2020-08-25)
+
+
+### Bug Fixes
+
+* remove unnecessary files from dist package ([#11](https://github.com/eik-lib/rollup-plugin-import-map/issues/11)) ([238878a](https://github.com/eik-lib/rollup-plugin-import-map/commit/238878ab06a53c1d2b8486a9f852672d0d1243bc))
+
 # 1.0.0 (2020-07-05)
 
 
