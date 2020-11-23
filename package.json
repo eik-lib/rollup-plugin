@@ -41,7 +41,7 @@
     "eslint": "7.13.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
-    "fastify": "3.4.1",
+    "fastify": "3.8.0",
     "rollup": "2.21.0",
     "tap": "14.10.8",
     "@semantic-release/changelog": "5.0.1",
