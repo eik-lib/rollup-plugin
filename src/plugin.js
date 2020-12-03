@@ -41,8 +41,8 @@ export default function esmImportToUrl({
     urls = [],
     path: eikPath = path.join(process.cwd(), 'eik.json'),
 } = {}) {
-    const _imports = Array.isArray(imports) ? imports : [imports];
-    const _urls = Array.isArray(urls) ? urls : [urls];
+    const pImports = Array.isArray(imports) ? imports : [imports];
+    const pUrls = Array.isArray(urls) ? urls : [urls];
     let plugin;
 
     return {
@@ -51,11 +51,11 @@ export default function esmImportToUrl({
         async buildStart(options) {
             const importmapUrls = await readEikJSONMaps(eikPath);
             for (const map of importmapUrls) {
-                _urls.push(map);
+                pUrls.push(map);
             }
 
-            const fetched = await fetchImportMaps(_urls);
-            const mappings = _imports.concat(fetched);
+            const fetched = await fetchImportMaps(pUrls);
+            const mappings = pImports.concat(fetched);
 
             plugin = importMapPlugin(mappings);
             await plugin.buildStart(options);
@@ -63,6 +63,6 @@ export default function esmImportToUrl({
 
         resolveId(importee) {
             return plugin.resolveId(importee);
-        }
+        },
     };
 }
