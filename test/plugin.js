@@ -6,7 +6,7 @@ import fastify from 'fastify';
 import plugin from '../src/plugin.js';
 import { __dirname } from '../utils/dirname.js';
 
-const file = `${__dirname}/../modules/file/main.js`;
+const file = `${__dirname}/../fixtures/modules/file/main.js`;
 
 /*
  * When running tests on Windows, the output code get some extra \r on each line.
