@@ -1,7 +1,13 @@
 export default {
-    input: 'src/plugin.mjs',
-    external: ['node-fetch', 'url'],
+    input: 'src/plugin.js',
+    external: [
+        'rollup-plugin-import-map',
+        'node-fetch',
+        'path',
+        'url',
+        'fs',
+    ],
     output: [
-        { file: 'dist/plugin.cjs.js', format: 'cjs' },
-    ]
+        { file: 'dist/plugin.cjs', format: 'cjs' },
+    ],
 };
