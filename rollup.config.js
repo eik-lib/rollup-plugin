@@ -2,10 +2,10 @@ export default {
     input: 'src/plugin.js',
     external: [
         'rollup-plugin-import-map',
-        'node-fetch', 
+        'node-fetch',
         'path',
         'url',
-        'fs'
+        'fs',
     ],
     output: [
         { file: 'dist/plugin.cjs', format: 'cjs' },
