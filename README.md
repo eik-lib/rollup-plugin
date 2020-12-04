@@ -71,16 +71,18 @@ export default {
 };
 ```
 
-Additionally, individual mappings can be specified using the `imports` option.
+Additionally, individual mappings can be specified using the `maps` option.
 
 ```js
 export default {
   input: "source/main.js",
   plugins: [
     eikImportMapPlugin({
-      imports: {
-        "lit-element": "https://cdn.pika.dev/lit-element/v2",
-      },
+      maps: [{
+        imports: {
+          "lit-element": "https://cdn.eik.dev/lit-element/v2",
+        }
+      }],
     }),
   ],
   output: {
@@ -90,7 +92,7 @@ export default {
 };
 ```
 
-If several of these options are used, `imports` takes precedence over `urls` which takes precedence over values loaded from an `eik.json` file.
+If several of these options are used, `maps` takes precedence over `urls` which takes precedence over values loaded from an `eik.json` file.
 
 ie. in the following example
 
@@ -99,10 +101,12 @@ export default {
     input: 'source/main.js',
     plugins: [eikImportMapPlugin({
         path: '/path/to/eik.json',
-        urls: ['http://myserver/import-map']
-        imports: {
-            'lit-element': 'https://cdn.pika.dev/lit-element/v2',
-        },
+        urls: ['http://myserver/import-map'],
+        maps: [{
+          imports: {
+            "lit-element": "https://cdn.eik.dev/lit-element/v2",
+          }
+        }],
     })],
     output: {
         file: 'build.js',
@@ -111,7 +115,7 @@ export default {
 };
 ```
 
-Any import map URLs in `eik.json` will be loaded first, then merged with (and overridden if necessary by) the result of fetching from `http://myserver/import-map` before finally being merged with (and overriden if necessary by) specific mappings defined in `imports`. (In this case `lit-element`)
+Any import map URLs in `eik.json` will be loaded first, then merged with (and overridden if necessary by) the result of fetching from `http://myserver/import-map` before finally being merged with (and overriden if necessary by) specific mappings defined in `maps`. (In this case `lit-element`)
 
 ### Plugin result
 
@@ -126,7 +130,7 @@ import { LitElement, html, css } from "lit-element";
 Will be mapped to something like this...
 
 ```js
-import { LitElement, html, css } from "https://cdn.pika.dev/lit-element/v2";
+import { LitElement, html, css } from "https://cdn.eik.dev/lit-element/v2";
 ```
 
 ## Options
@@ -137,11 +141,7 @@ This plugin takes an [import map](https://github.com/WICG/import-maps) as option
 | ------- | -------------- | -------- | -------- | ----------------------------------------------------------- |
 | path    | `cwd/eik.json` | `string` | `false`  | Path to eik.json file.                                      |
 | urls    | `[]`           | `array`  | `false`  | Array of import map URLs to fetch from.                     |
-| imports | `{}`           | `object` | `false`  | Mapping between "bare" import specifiers and absolute URLs. |
-
-This module only cares about "bare" import specifiers which map to absolute
-URLs in the import map. Any other import specifiers defined in the import map
-are ignored.
+| maps    | `[]`           | `array`  | `false`  | Array of import map as objects.                             |
 
 ## Note on the rollup external option
 
@@ -156,9 +156,11 @@ export default {
   external: ["lit-element"],
   plugins: [
     eikImportMapPlugin({
-      imports: {
-        "lit-element": "https://cdn.pika.dev/lit-element/v2",
-      },
+      maps: [{
+        imports: {
+          "lit-element": "https://cdn.eik.dev/lit-element/v2",
+        }
+      }],
     }),
   ],
   output: {

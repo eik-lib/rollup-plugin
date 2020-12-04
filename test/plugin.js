@@ -38,7 +38,7 @@ tap.test('plugin() - import map fetched from a URL', async (t) => {
             // Supress logging
         },
         plugins: [plugin({
-            imports: [{
+            maps: [{
                 imports: {
                     'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
                 },
@@ -125,7 +125,7 @@ tap.test('plugin() - import maps via eik.json, URLs and direct definitions', asy
             // Supress logging
         },
         plugins: [plugin({
-            imports: [{
+            maps: [{
                 imports: {
                     'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
                 },

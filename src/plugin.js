@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 
 import { rollupImportMapPlugin as importMapPlugin } from 'rollup-plugin-import-map';
+import { join } from 'path';
 import fetch from 'node-fetch';
-import path from 'path';
 import fs from 'fs';
 
 async function readEikJSONMaps(eikJSONPath) {
@@ -37,11 +37,11 @@ async function fetchImportMaps(urls = []) {
 }
 
 export default function esmImportToUrl({
-    imports = [],
+    path = join(process.cwd(), 'eik.json'),
+    maps = [],
     urls = [],
-    path: eikPath = path.join(process.cwd(), 'eik.json'),
 } = {}) {
-    const pImports = Array.isArray(imports) ? imports : [imports];
+    const pMaps = Array.isArray(maps) ? maps : [maps];
     const pUrls = Array.isArray(urls) ? urls : [urls];
     let plugin;
 
@@ -49,13 +49,13 @@ export default function esmImportToUrl({
         name: 'rollup-plugin-eik-import-map',
 
         async buildStart(options) {
-            const importmapUrls = await readEikJSONMaps(eikPath);
+            const importmapUrls = await readEikJSONMaps(path);
             for (const map of importmapUrls) {
                 pUrls.push(map);
             }
 
             const fetched = await fetchImportMaps(pUrls);
-            const mappings = pImports.concat(fetched);
+            const mappings = pMaps.concat(fetched);
 
             plugin = importMapPlugin(mappings);
             await plugin.buildStart(options);
