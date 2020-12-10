@@ -59,6 +59,6 @@
   },
   "dependencies": {
     "node-fetch": "2.6.1",
-    "rollup-plugin-import-map": "2.2.0"
+    "rollup-plugin-import-map": "2.2.1"
   }
 }
