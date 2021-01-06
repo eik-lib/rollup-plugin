@@ -142,3 +142,81 @@ tap.test('plugin() - import maps via eik.json, URLs and direct definitions', asy
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
+
+tap.test('plugin() - package.json defined import maps', async (t) => {
+    const server = fastify();
+    server.get('/one', (request, reply) => {
+        reply.send({
+            imports: {
+                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
+                'lit-html': 'https://cdn.pika.dev/lit-html/v1',
+                'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
+            },
+        });
+    });
+    const address = await server.listen();
+
+    await fs.promises.writeFile(path.join(process.cwd(), 'pkg.json'), JSON.stringify({
+        eik: {
+            name: 'test',
+            version: '1.0.0',
+            js: '',
+            css: '',
+            'import-map': `${address}/one`,
+        },
+    }));
+
+    const options = {
+        input: file,
+        onwarn: () => {
+            // Supress logging
+        },
+        plugins: [plugin({ packagePath: path.join(process.cwd(), 'pkg.json') })],
+    };
+
+    const bundle = await rollup(options);
+    const { output } = await bundle.generate({ format: 'esm' });
+
+    t.matchSnapshot(clean(output[0].code), 'import-map defined in package.json');
+    await server.close();
+    await fs.promises.unlink(path.join(process.cwd(), 'pkg.json'));
+    t.end();
+});
+
+tap.test('plugin() - package.json and eik.json defined import maps - should throw', async (t) => {
+    await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
+        name: 'test',
+        version: '1.0.0',
+        js: '',
+        css: '',
+        'import-map': 'http://test.com',
+    }));
+
+    await fs.promises.writeFile(path.join(process.cwd(), 'pkg.json'), JSON.stringify({
+        eik: {
+            name: 'test',
+            version: '1.0.0',
+            js: '',
+            css: '',
+            'import-map': 'http://test.com',
+        },
+    }));
+
+    const options = {
+        input: file,
+        onwarn: () => {
+            // Supress logging
+        },
+        plugins: [plugin({ packagePath: path.join(process.cwd(), 'pkg.json') })],
+    };
+
+    try {
+        await rollup(options);
+    } catch (err) {
+        t.match(err.message, 'Eik configuration was defined in both in package.json and eik.json. You must specify one or the other.');
+    }
+
+    await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
+    await fs.promises.unlink(path.join(process.cwd(), 'pkg.json'));
+    t.end();
+});

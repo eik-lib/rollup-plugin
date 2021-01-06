@@ -5,15 +5,27 @@ import { join } from 'path';
 import fetch from 'node-fetch';
 import fs from 'fs';
 
-async function readEikJSONMaps(eikJSONPath) {
+async function readJSONFile(path) {
     try {
-        const contents = await fs.promises.readFile(eikJSONPath);
-        const eikJSON = JSON.parse(contents);
-        if (typeof eikJSON['import-map'] === 'string') return [eikJSON['import-map']];
-        return eikJSON['import-map'] || [];
+        const contents = await fs.promises.readFile(path);
+        return JSON.parse(contents);
     } catch (err) {
-        return [];
+        return {};
     }
+}
+
+async function readEikJSONMaps(eikJSONPath, pkgJSONPath) {
+    const eikJSON = await readJSONFile(eikJSONPath);
+    const pkgJSON = await readJSONFile(pkgJSONPath);
+
+    if (eikJSON.name && pkgJSON.eik) {
+        throw new Error('Eik configuration was defined in both in package.json and eik.json. You must specify one or the other.');
+    }
+
+    const config = { ...eikJSON, ...pkgJSON.eik };
+
+    if (typeof config['import-map'] === 'string') return [config['import-map']];
+    return config['import-map'] || [];
 }
 
 async function fetchImportMaps(urls = []) {
@@ -38,6 +50,7 @@ async function fetchImportMaps(urls = []) {
 
 export default function esmImportToUrl({
     path = join(process.cwd(), 'eik.json'),
+    packagePath = join(process.cwd(), 'package.json'),
     maps = [],
     urls = [],
 } = {}) {
@@ -49,7 +62,7 @@ export default function esmImportToUrl({
         name: 'rollup-plugin-eik-import-map',
 
         async buildStart(options) {
-            const importmapUrls = await readEikJSONMaps(path);
+            const importmapUrls = await readEikJSONMaps(path, packagePath);
             for (const map of importmapUrls) {
                 pUrls.push(map);
             }
