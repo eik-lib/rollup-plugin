@@ -32,7 +32,7 @@ ES modules. The module refered to by the "bare" import specifier will be
 treated as external and its source will not be included in the bundle but
 refered to by URL.
 
-The plugin will attempt to read import map URLs from `eik.json` if present.
+The plugin will attempt to read import map URLs from `eik.json` or `package.json` if present and will throw if values are defined in both `eik.json` and `package.json`.
 
 ```js
 export default {
@@ -46,11 +46,26 @@ export default {
 ```
 
 The path to the location of an `eik.json` file can be specified with the `path` option.
+`path` defaults to the current working directory.
 
 ```js
 export default {
   input: "source/main.js",
   plugins: [eikImportMapPlugin({ path: "/path/to/eik.json" })],
+  output: {
+    file: "build.js",
+    format: "esm",
+  },
+};
+```
+
+The path to the location of a `package.json` file can be specified with the `packagePath` option.
+`packagePath` defaults to the current working directory.
+
+```js
+export default {
+  input: "source/main.js",
+  plugins: [eikImportMapPlugin({ packagePath: "/path/to/package.json" })],
   output: {
     file: "build.js",
     format: "esm",
@@ -78,11 +93,13 @@ export default {
   input: "source/main.js",
   plugins: [
     eikImportMapPlugin({
-      maps: [{
-        imports: {
-          "lit-element": "https://cdn.eik.dev/lit-element/v2",
-        }
-      }],
+      maps: [
+        {
+          imports: {
+            "lit-element": "https://cdn.eik.dev/lit-element/v2",
+          },
+        },
+      ],
     }),
   ],
   output: {
@@ -92,26 +109,30 @@ export default {
 };
 ```
 
-If several of these options are used, `maps` takes precedence over `urls` which takes precedence over values loaded from an `eik.json` file.
+If several of these options are used, `maps` takes precedence over `urls` which takes precedence over values loaded from a `eik.json` or `package.json` file.
 
 ie. in the following example
 
 ```js
 export default {
-    input: 'source/main.js',
-    plugins: [eikImportMapPlugin({
-        path: '/path/to/eik.json',
-        urls: ['http://myserver/import-map'],
-        maps: [{
+  input: "source/main.js",
+  plugins: [
+    eikImportMapPlugin({
+      path: "/path/to/eik.json",
+      urls: ["http://myserver/import-map"],
+      maps: [
+        {
           imports: {
             "lit-element": "https://cdn.eik.dev/lit-element/v2",
-          }
-        }],
-    })],
-    output: {
-        file: 'build.js',
-        format: 'esm'
-    }
+          },
+        },
+      ],
+    }),
+  ],
+  output: {
+    file: "build.js",
+    format: "esm",
+  },
 };
 ```
 
@@ -119,7 +140,7 @@ Any import map URLs in `eik.json` will be loaded first, then merged with (and ov
 
 ### Plugin result
 
-Bundles will have bare imports mapped to absolute URLs. 
+Bundles will have bare imports mapped to absolute URLs.
 
 Ie. Something like this...
 
@@ -137,11 +158,12 @@ import { LitElement, html, css } from "https://cdn.eik.dev/lit-element/v2";
 
 This plugin takes an [import map](https://github.com/WICG/import-maps) as options:
 
-| option  | default        | type     | required | details                                                     |
-| ------- | -------------- | -------- | -------- | ----------------------------------------------------------- |
-| path    | `cwd/eik.json` | `string` | `false`  | Path to eik.json file.                                      |
-| urls    | `[]`           | `array`  | `false`  | Array of import map URLs to fetch from.                     |
-| maps    | `[]`           | `array`  | `false`  | Array of import map as objects.                             |
+| option      | default            | type     | required | details                                 |
+| ----------- | ------------------ | -------- | -------- | --------------------------------------- |
+| path        | `cwd/eik.json`     | `string` | `false`  | Path to eik.json file.                  |
+| packagePath | `cwd/package.json` | `string` | `false`  | Path to package.json file.              |
+| urls        | `[]`               | `array`  | `false`  | Array of import map URLs to fetch from. |
+| maps        | `[]`               | `array`  | `false`  | Array of import map as objects.         |
 
 ## Note on the rollup external option
 
@@ -156,11 +178,13 @@ export default {
   external: ["lit-element"],
   plugins: [
     eikImportMapPlugin({
-      maps: [{
-        imports: {
-          "lit-element": "https://cdn.eik.dev/lit-element/v2",
-        }
-      }],
+      maps: [
+        {
+          imports: {
+            "lit-element": "https://cdn.eik.dev/lit-element/v2",
+          },
+        },
+      ],
     }),
   ],
   output: {
