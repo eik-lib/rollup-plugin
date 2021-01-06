@@ -206,7 +206,7 @@ tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
         }));    
     });
 
-    tap.test('should throw', (t) => {
+    tap.test('should reject', (t) => {
         const options = {
             input: file,
             onwarn: () => {
