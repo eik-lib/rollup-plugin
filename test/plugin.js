@@ -183,8 +183,8 @@ tap.test('plugin() - package.json defined import maps', async (t) => {
     t.end();
 });
 
-tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
-    t.plan(0);
+tap.test('plugin() - package.json and eik.json defined import maps', (p) => {
+    p.plan(0);
 
     tap.test(async () => {
         await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
@@ -194,7 +194,7 @@ tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
             css: '',
             'import-map': 'http://test.com',
         }));
-    
+
         await fs.promises.writeFile(path.join(process.cwd(), 'pkg.json'), JSON.stringify({
             eik: {
                 name: 'test',
@@ -203,7 +203,7 @@ tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
                 css: '',
                 'import-map': 'http://test.com',
             },
-        }));    
+        }));
     });
 
     tap.test('should reject', (t) => {
@@ -218,7 +218,7 @@ tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
         t.rejects(rollup(options));
         t.end();
     });
-    
+
     tap.test(async () => {
         await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
         await fs.promises.unlink(path.join(process.cwd(), 'pkg.json'));
