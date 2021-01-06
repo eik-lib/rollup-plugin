@@ -183,40 +183,44 @@ tap.test('plugin() - package.json defined import maps', async (t) => {
     t.end();
 });
 
-tap.test('plugin() - package.json and eik.json defined import maps - should throw', async (t) => {
-    await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
-        name: 'test',
-        version: '1.0.0',
-        js: '',
-        css: '',
-        'import-map': 'http://test.com',
-    }));
+tap.test('plugin() - package.json and eik.json defined import maps', (t) => {
+    t.plan(0);
 
-    await fs.promises.writeFile(path.join(process.cwd(), 'pkg.json'), JSON.stringify({
-        eik: {
+    tap.test(async () => {
+        await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
             name: 'test',
             version: '1.0.0',
             js: '',
             css: '',
             'import-map': 'http://test.com',
-        },
-    }));
+        }));
+    
+        await fs.promises.writeFile(path.join(process.cwd(), 'pkg.json'), JSON.stringify({
+            eik: {
+                name: 'test',
+                version: '1.0.0',
+                js: '',
+                css: '',
+                'import-map': 'http://test.com',
+            },
+        }));    
+    });
 
-    const options = {
-        input: file,
-        onwarn: () => {
-            // Supress logging
-        },
-        plugins: [plugin({ packagePath: path.join(process.cwd(), 'pkg.json') })],
-    };
+    tap.test('should throw', (t) => {
+        const options = {
+            input: file,
+            onwarn: () => {
+                // Supress logging
+            },
+            plugins: [plugin({ packagePath: path.join(process.cwd(), 'pkg.json') })],
+        };
 
-    try {
-        await rollup(options);
-    } catch (err) {
-        t.match(err.message, 'Eik configuration was defined in both in package.json and eik.json. You must specify one or the other.');
-    }
-
-    await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
-    await fs.promises.unlink(path.join(process.cwd(), 'pkg.json'));
-    t.end();
+        t.rejects(rollup(options));
+        t.end();
+    });
+    
+    tap.test(async () => {
+        await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
+        await fs.promises.unlink(path.join(process.cwd(), 'pkg.json'));
+    });
 });
