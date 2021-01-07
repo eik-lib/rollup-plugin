@@ -17,7 +17,7 @@
   },
   "scripts": {
     "prepare": "npm run -s build",
-    "test": "tap --no-esm test/*.js --no-coverage",
+    "test": "tap --no-esm test/tests/*.js --no-coverage",
     "test:snapshot": "TAP_SNAPSHOT=1 tap --no-esm test/*.js --no-coverage",
     "lint": "eslint . --ext=js",
     "lint:fix": "eslint . --fix --ext=js",
