@@ -58,6 +58,7 @@
     "tap": "14.11.0"
   },
   "dependencies": {
+    "@eik/common": "^1.4.0",
     "node-fetch": "2.6.1",
     "rollup-plugin-import-map": "2.2.2"
   }
