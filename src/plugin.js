@@ -37,9 +37,8 @@ export default function esmImportToUrl({
         name: 'rollup-plugin-eik-import-map',
 
         async buildStart(options) {
-            const config = await helpers.getDefaults(path)
-            const configMap = Array.isArray(config.map) ? config.map : [config.map]
-            for (const map of configMap) {
+            const config = await helpers.getDefaults(path);
+            for (const map of config.map) {
                 pUrls.push(map);
             }
 
