@@ -50,7 +50,7 @@ The path to the location of an `eik.json` file can be specified with the `path` 
 ```js
 export default {
   input: "source/main.js",
-  plugins: [eikImportMapPlugin({ path: "/path/to/eik.json" })],
+  plugins: [eikImportMapPlugin({ path: "/path/to/eik-json-folder" })],
   output: {
     file: "build.js",
     format: "esm",
@@ -100,7 +100,7 @@ ie. in the following example
 export default {
     input: 'source/main.js',
     plugins: [eikImportMapPlugin({
-        path: '/path/to/eik.json',
+        path: '/path/to/eik-json-folder',
         urls: ['http://myserver/import-map'],
         maps: [{
           imports: {
