@@ -70,9 +70,12 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
+        server: address,
         version: '1.0.0',
-        js: '',
-        css: '',
+        files: {
+            '/css': '/src/css/**/*',
+            '/js': '/src/js/**/*',
+        },
         'import-map': `${address}/one`,
     }));
 
@@ -113,9 +116,12 @@ tap.test('plugin() - import maps via eik.json, URLs and direct definitions', asy
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
+        server: address,
         version: '1.0.0',
-        js: '',
-        css: '',
+        files: {
+            '/css': '/src/css/**/*',
+            '/js': '/src/js/**/*',
+        },
         'import-map': `${address}/one`,
     }));
 
