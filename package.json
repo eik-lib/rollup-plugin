@@ -49,12 +49,12 @@
     "@semantic-release/github": "7.2.0",
     "@semantic-release/npm": "7.0.10",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "eslint": "7.14.0",
+    "eslint": "7.20.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
-    "fastify": "3.8.0",
-    "rollup": "2.21.0",
-    "semantic-release": "17.3.3",
+    "fastify": "3.12.0",
+    "rollup": "2.39.0",
+    "semantic-release": "17.3.9",
     "tap": "14.11.0"
   },
   "dependencies": {
