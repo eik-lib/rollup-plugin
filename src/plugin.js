@@ -34,7 +34,7 @@ export default function esmImportToUrl({
     let plugin;
 
     return {
-        name: 'rollup-plugin-eik-import-map',
+        name: 'eik-rollup-plugin',
 
         async buildStart(options) {
             const config = await helpers.getDefaults(path);
