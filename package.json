@@ -1,7 +1,7 @@
 {
-  "name": "@eik/rollup-plugin-import-map",
-  "version": "1.0.2",
-  "description": "Rollup plugin that uses Eik defined import map files to transform bare import specifiers to absolute URLs in ES modules",
+  "name": "@eik/rollup-plugin",
+  "version": "4.0.0",
+  "description": "Rollup plugin for loading import maps from a Eik server and applying the mapping to ECMAScript modules in preparation for upload to the same server.",
   "type": "module",
   "main": "./dist/plugin.cjs",
   "exports": {
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eik-lib/rollup-plugin-import-map.git"
+    "url": "git+https://github.com/eik-lib/rollup-plugin.git"
   },
   "keywords": [
     "rollup-plugin",
@@ -39,9 +39,9 @@
   "author": "Finn.no",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eik-lib/rollup-plugin-import-map/issues"
+    "url": "https://github.com/eik-lib/rollup-plugin/issues"
   },
-  "homepage": "https://github.com/eik-lib/rollup-plugin-import-map#readme",
+  "homepage": "https://github.com/eik-lib/rollup-plugin#readme",
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",

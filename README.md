@@ -1,4 +1,4 @@
-# rollup-plugin-import-map
+# @eik/rollup-plugin
 
 Plugin to rewrite bare imports to URLs as defined in import maps
 
@@ -13,11 +13,11 @@ $ npm install @eik/rollup-plugin-import-map
 ## Usage
 
 ```js
-import eikImportMapPlugin from "@eik/rollup-plugin-import-map";
+import plugin from "@eik/rollup-plugin";
 
 export default {
   input: "source/main.js",
-  plugins: [eikImportMapPlugin()],
+  plugins: [plugin()],
   output: {
     file: "build.js",
     format: "esm",
@@ -37,7 +37,7 @@ The plugin will attempt to read import map URLs from `eik.json` if present.
 ```js
 export default {
   input: "source/main.js",
-  plugins: [eikImportMapPlugin()],
+  plugins: [plugin()],
   output: {
     file: "build.js",
     format: "esm",
@@ -50,7 +50,7 @@ The path to the location of an `eik.json` file can be specified with the `path` 
 ```js
 export default {
   input: "source/main.js",
-  plugins: [eikImportMapPlugin({ path: "/path/to/eik-json-folder" })],
+  plugins: [plugin({ path: "/path/to/eik-json-folder" })],
   output: {
     file: "build.js",
     format: "esm",
@@ -63,7 +63,7 @@ The plugin can also be told which URLs to load import maps from directly using t
 ```js
 export default {
   input: "source/main.js",
-  plugins: [eikImportMapPlugin({ urls: `http://myserver/import-map` })],
+  plugins: [plugin({ urls: `http://myserver/import-map` })],
   output: {
     file: "build.js",
     format: "esm",
@@ -77,7 +77,7 @@ Additionally, individual mappings can be specified using the `maps` option.
 export default {
   input: "source/main.js",
   plugins: [
-    eikImportMapPlugin({
+    plugin({
       maps: [{
         imports: {
           "lit-element": "https://cdn.eik.dev/lit-element/v2",
@@ -99,7 +99,7 @@ ie. in the following example
 ```js
 export default {
     input: 'source/main.js',
-    plugins: [eikImportMapPlugin({
+    plugins: [plugin({
         path: '/path/to/eik-json-folder',
         urls: ['http://myserver/import-map'],
         maps: [{
@@ -155,7 +155,7 @@ export default {
   input: "source/main.js",
   external: ["lit-element"],
   plugins: [
-    eikImportMapPlugin({
+    plugin({
       maps: [{
         imports: {
           "lit-element": "https://cdn.eik.dev/lit-element/v2",
@@ -172,7 +172,7 @@ export default {
 
 ## License
 
-Copyright (c) 2020 Finn.no
+Copyright (c) 2021 Finn.no
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
