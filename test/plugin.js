@@ -152,7 +152,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
             },
         });
     });
-    
+
     server.get('/two', (request, reply) => {
         reply.send({
             imports: {
@@ -160,7 +160,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
             },
         });
     });
-    
+
     const address = await server.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
@@ -181,7 +181,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
         },
         plugins: [plugin({
             urls: [
-                `${address}/two`
+                `${address}/two`,
             ],
         })],
     };
@@ -204,7 +204,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
             },
         });
     });
-    
+
     server.get('/two', (request, reply) => {
         reply.send({
             imports: {
@@ -212,7 +212,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
             },
         });
     });
-    
+
     const address = await server.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
@@ -238,7 +238,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
                 },
             }],
             urls: [
-                `${address}/two`
+                `${address}/two`,
             ],
         })],
     };
@@ -251,5 +251,3 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
-
-
