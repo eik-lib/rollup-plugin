@@ -1,3 +1,10 @@
+## [4.0.3](https://github.com/eik-lib/rollup-plugin/compare/v4.0.2...v4.0.3) (2021-08-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @eik/common to v3 ([#56](https://github.com/eik-lib/rollup-plugin/issues/56)) ([1f6fb40](https://github.com/eik-lib/rollup-plugin/commit/1f6fb40701e97c2e8f7d748b7f8fc4b00a89d481))
+
 ## [1.0.2](https://github.com/eik-lib/rollup-plugin-import-map/compare/v1.0.1...v1.0.2) (2020-08-25)
 
 
