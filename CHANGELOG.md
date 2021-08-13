@@ -1,3 +1,11 @@
+## [4.0.4](https://github.com/eik-lib/rollup-plugin/compare/v4.0.3...v4.0.4) (2021-08-13)
+
+
+### Bug Fixes
+
+* Align precedence of maps with other plugins ([#46](https://github.com/eik-lib/rollup-plugin/issues/46)) ([16f2d9e](https://github.com/eik-lib/rollup-plugin/commit/16f2d9ede6ea6e2c6bad904a5dd5ffc10b694498))
+* Update @eik/common to version 4 ([#44](https://github.com/eik-lib/rollup-plugin/issues/44)) ([cd24cbd](https://github.com/eik-lib/rollup-plugin/commit/cd24cbd45d0f29957d38eb9afb9161cca7d6bfac))
+
 ## [4.0.3](https://github.com/eik-lib/rollup-plugin/compare/v4.0.2...v4.0.3) (2021-08-13)
 
 ## [4.0.3-next.2](https://github.com/eik-lib/rollup-plugin/compare/v4.0.3-next.1...v4.0.3-next.2) (2021-03-08)
