@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 
 import { rollupImportMapPlugin as importMapPlugin } from 'rollup-plugin-import-map';
-import fetch from 'node-fetch';
 import { helpers } from '@eik/common';
+import fetch from 'node-fetch';
 
 async function fetchImportMaps(urls = []) {
     try {
@@ -37,15 +37,13 @@ export default function esmImportToUrl({
         name: 'eik-rollup-plugin',
 
         async buildStart(options) {
+            // Load eik config from eik.json or package.json
             const config = await helpers.getDefaults(path);
-            for (const map of config.map) {
-                pUrls.push(map);
-            }
 
-            const fetched = await fetchImportMaps(pUrls);
-            const mappings = pMaps.concat(fetched);
+            // Fetch import maps from the server
+            const fetched = await fetchImportMaps([...config.map, ...pUrls]);
 
-            plugin = importMapPlugin(mappings);
+            plugin = importMapPlugin([...fetched, ...pMaps]);
             await plugin.buildStart(options);
         },
 

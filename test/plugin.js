@@ -1,8 +1,9 @@
-import fs from 'fs';
 import { rollup } from 'rollup';
+import fastify from 'fastify';
 import path from 'path';
 import tap from 'tap';
-import fastify from 'fastify';
+import fs from 'fs';
+
 import plugin from '../src/plugin.js';
 import { __dirname } from '../utils/dirname.js';
 
@@ -19,14 +20,14 @@ tap.test('plugin() - import map fetched from a URL', async (t) => {
     server.get('/one', (request, reply) => {
         reply.send({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2',
             },
         });
     });
     server.get('/two', (request, reply) => {
         reply.send({
             imports: {
-                'lit-html': 'https://cdn.pika.dev/lit-html/v1',
+                'lit-html': 'https://cdn.eik.dev/lit-html/v1',
             },
         });
     });
@@ -40,7 +41,7 @@ tap.test('plugin() - import map fetched from a URL', async (t) => {
         plugins: [plugin({
             maps: [{
                 imports: {
-                    'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
+                    'lit-html/lit-html': 'https://cdn.eik.dev/lit-html/v2',
                 },
             }],
             urls: [`${address}/one`, `${address}/two`],
@@ -60,9 +61,9 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
     server.get('/one', (request, reply) => {
         reply.send({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
-                'lit-html': 'https://cdn.pika.dev/lit-html/v1',
-                'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2',
+                'lit-html': 'https://cdn.eik.dev/lit-html/v1',
+                'lit-html/lit-html': 'https://cdn.eik.dev/lit-html/v2',
             },
         });
     });
@@ -96,22 +97,16 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
     t.end();
 });
 
-tap.test('plugin() - import maps via eik.json, URLs and direct definitions', async (t) => {
+tap.test('plugin() - Import map defined through constructor "maps" argument take precedence over import map defined in eik.json', async (t) => {
     const server = fastify();
     server.get('/one', (request, reply) => {
         reply.send({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
+                'lit-element': 'https://cdn.eik.dev/lit-element/v1',
             },
         });
     });
-    server.get('/two', (request, reply) => {
-        reply.send({
-            imports: {
-                'lit-html': 'https://cdn.pika.dev/lit-html/v1',
-            },
-        });
-    });
+
     const address = await server.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
@@ -119,8 +114,8 @@ tap.test('plugin() - import maps via eik.json, URLs and direct definitions', asy
         server: address,
         version: '1.0.0',
         files: {
-            '/css': '/src/css/**/*',
-            '/js': '/src/js/**/*',
+            '/css': '/src/css/',
+            '/js': '/src/js/',
         },
         'import-map': `${address}/one`,
     }));
@@ -133,17 +128,125 @@ tap.test('plugin() - import maps via eik.json, URLs and direct definitions', asy
         plugins: [plugin({
             maps: [{
                 imports: {
-                    'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
+                    'lit-element': 'https://cdn.eik.dev/lit-element/v2',
                 },
             }],
-            urls: [`${address}/two`],
         })],
     };
 
     const bundle = await rollup(options);
     const { output } = await bundle.generate({ format: 'esm' });
 
-    t.matchSnapshot(clean(output[0].code), 'import maps from eik.json, urls and direct definition');
+    t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
+    await server.close();
+    await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
+    t.end();
+});
+
+tap.test('plugin() - Import map defined through constructor "urls" argument take precedence over import map defined in eik.json', async (t) => {
+    const server = fastify();
+    server.get('/one', (request, reply) => {
+        reply.send({
+            imports: {
+                'lit-element': 'https://cdn.eik.dev/lit-element/v1',
+            },
+        });
+    });
+
+    server.get('/two', (request, reply) => {
+        reply.send({
+            imports: {
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2',
+            },
+        });
+    });
+
+    const address = await server.listen();
+
+    await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
+        name: 'test',
+        server: address,
+        version: '1.0.0',
+        files: {
+            '/css': '/src/css/',
+            '/js': '/src/js/',
+        },
+        'import-map': `${address}/one`,
+    }));
+
+    const options = {
+        input: file,
+        onwarn: () => {
+            // Supress logging
+        },
+        plugins: [plugin({
+            urls: [
+                `${address}/two`,
+            ],
+        })],
+    };
+
+    const bundle = await rollup(options);
+    const { output } = await bundle.generate({ format: 'esm' });
+
+    t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
+    await server.close();
+    await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
+    t.end();
+});
+
+tap.test('plugin() - Import map defined through constructor "maps" argument take precedence over import map defined through constructor "urls" argument', async (t) => {
+    const server = fastify();
+    server.get('/one', (request, reply) => {
+        reply.send({
+            imports: {
+                'lit-element': 'https://cdn.eik.dev/lit-element/v0',
+            },
+        });
+    });
+
+    server.get('/two', (request, reply) => {
+        reply.send({
+            imports: {
+                'lit-element': 'https://cdn.eik.dev/lit-element/v1',
+            },
+        });
+    });
+
+    const address = await server.listen();
+
+    await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
+        name: 'test',
+        server: address,
+        version: '1.0.0',
+        files: {
+            '/css': '/src/css/',
+            '/js': '/src/js/',
+        },
+        'import-map': `${address}/one`,
+    }));
+
+    const options = {
+        input: file,
+        onwarn: () => {
+            // Supress logging
+        },
+        plugins: [plugin({
+            maps: [{
+                imports: {
+                    'lit-element': 'https://cdn.eik.dev/lit-element/v2',
+                },
+            }],
+            urls: [
+                `${address}/two`,
+            ],
+        })],
+    };
+
+    const bundle = await rollup(options);
+    const { output } = await bundle.generate({ format: 'esm' });
+
+    t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
     await server.close();
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
