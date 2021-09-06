@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@eik/common": "3.0.0",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.2",
     "rollup-plugin-import-map": "2.2.2"
   }
 }
