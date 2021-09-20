@@ -1,3 +1,10 @@
+## [4.0.6](https://github.com/eik-lib/rollup-plugin/compare/v4.0.5...v4.0.6) (2021-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-fetch to v2.6.3 ([7d1687c](https://github.com/eik-lib/rollup-plugin/commit/7d1687c867ead375e51a323a78d0f284ddd4bed1))
+
 ## [4.0.5](https://github.com/eik-lib/rollup-plugin/compare/v4.0.4...v4.0.5) (2021-09-06)
 
 
