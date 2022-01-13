@@ -1,3 +1,10 @@
+## [4.0.11](https://github.com/eik-lib/rollup-plugin/compare/v4.0.10...v4.0.11) (2022-01-13)
+
+
+### Bug Fixes
+
+* Fix node-fetch 3.x regression in CJS build ([#70](https://github.com/eik-lib/rollup-plugin/issues/70)) ([16b71c9](https://github.com/eik-lib/rollup-plugin/commit/16b71c97c08c6840ffd6df3b9d1520037dfe3257))
+
 ## [4.0.10](https://github.com/eik-lib/rollup-plugin/compare/v4.0.9...v4.0.10) (2022-01-11)
 
 
