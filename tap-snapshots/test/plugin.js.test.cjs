@@ -20,7 +20,7 @@ class Inner extends LitElement {
     }
 }
 
-export default Inner;
+export { Inner as default };
 
 `
 
@@ -39,7 +39,7 @@ class Inner extends LitElement {
     }
 }
 
-export default Inner;
+export { Inner as default };
 
 `
 
@@ -58,7 +58,7 @@ class Inner extends LitElement {
     }
 }
 
-export default Inner;
+export { Inner as default };
 
 `
 
@@ -77,7 +77,7 @@ class Inner extends LitElement {
     }
 }
 
-export default Inner;
+export { Inner as default };
 
 `
 
@@ -96,6 +96,6 @@ class Inner extends LitElement {
     }
 }
 
-export default Inner;
+export { Inner as default };
 
 `

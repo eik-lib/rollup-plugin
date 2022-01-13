@@ -2,27 +2,32 @@
 
 import { rollupImportMapPlugin as importMapPlugin } from 'rollup-plugin-import-map';
 import { helpers } from '@eik/common';
-import fetch from 'node-fetch';
+import { request } from 'undici';
 
-async function fetchImportMaps(urls = []) {
+const fetchImportMaps = async (urls = []) => {
     try {
-        const maps = urls.map((map) => fetch(map).then((result) => {
-            if (result.status === 404) {
+        const maps = urls.map(async (map) => {
+            const {
+                statusCode,
+                body,
+            } = await request(map, { maxRedirections: 2 });
+
+            if (statusCode === 404) {
                 throw new Error('Import map could not be found on server');
-            } else if (result.status >= 400 && result.status < 500) {
+            } else if (statusCode >= 400 && statusCode < 500) {
                 throw new Error('Server rejected client request');
-            } else if (result.status >= 500) {
+            } else if (statusCode >= 500) {
                 throw new Error('Server error');
             }
-            return result.json();
-        }));
+            return body.json();
+        });
         return await Promise.all(maps);
     } catch (err) {
         throw new Error(
             `Unable to load import map file from server: ${err.message}`,
         );
     }
-}
+};
 
 export default function esmImportToUrl({
     path = process.cwd(),
