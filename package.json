@@ -19,8 +19,8 @@
   },
   "scripts": {
     "prepare": "npm run -s build",
-    "test": "tap --no-esm test/*.js --no-coverage",
-    "test:snapshot": "TAP_SNAPSHOT=1 tap --no-esm test/*.js --no-coverage",
+    "test": "tap --no-coverage",
+    "test:snapshot": "TAP_SNAPSHOT=1 tap --no-coverage",
     "lint": "eslint . --ext=js",
     "lint:fix": "eslint . --fix --ext=js",
     "start": "node --experimental-modules ./example/server.mjs",
@@ -46,22 +46,18 @@
   "homepage": "https://github.com/eik-lib/rollup-plugin#readme",
   "devDependencies": {
     "@semantic-release/changelog": "6.0.1",
-    "@semantic-release/commit-analyzer": "9.0.2",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "8.0.2",
-    "@semantic-release/npm": "8.0.3",
-    "@semantic-release/release-notes-generator": "10.0.3",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-plugin-import": "2.24.0",
-    "fastify": "3.14.1",
-    "rollup": "2.39.0",
+    "eslint": "8.6.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.25.4",
+    "fastify": "3.25.3",
+    "rollup": "2.63.0",
     "semantic-release": "18.0.1",
-    "tap": "14.11.0"
+    "tap": "15.1.6"
   },
   "dependencies": {
     "@eik/common": "3.0.0",
-    "node-fetch": "3.1.0",
+    "undici": "4.12.1",
     "rollup-plugin-import-map": "2.2.2"
   }
 }

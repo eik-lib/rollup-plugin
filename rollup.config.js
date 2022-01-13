@@ -2,7 +2,7 @@ export default {
     input: 'src/plugin.js',
     external: [
         'rollup-plugin-import-map',
-        'node-fetch',
+        'undici',
         'path',
         'url',
         'fs',

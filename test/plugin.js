@@ -1,13 +1,13 @@
 import { rollup } from 'rollup';
+import { URL } from 'node:url';
 import fastify from 'fastify';
-import path from 'path';
+import path from 'node:path';
 import tap from 'tap';
-import fs from 'fs';
+import fs from 'node:fs';
 
 import plugin from '../src/plugin.js';
-import { __dirname } from '../utils/dirname.js';
 
-const file = `${__dirname}/../fixtures/modules/file/main.js`;
+const FILE = new URL('../fixtures/modules/file/main.js', import.meta.url).pathname;
 
 /*
  * When running tests on Windows, the output code get some extra \r on each line.
@@ -16,25 +16,26 @@ const file = `${__dirname}/../fixtures/modules/file/main.js`;
 const clean = (str) => str.split('\r').join('');
 
 tap.test('plugin() - import map fetched from a URL', async (t) => {
-    const server = fastify();
-    server.get('/one', (request, reply) => {
+    const app = fastify();
+    app.server.keepAliveTimeout = 20;
+    app.get('/one', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
             },
         });
     });
-    server.get('/two', (request, reply) => {
+    app.get('/two', (request, reply) => {
         reply.send({
             imports: {
                 'lit-html': 'https://cdn.eik.dev/lit-html/v1',
             },
         });
     });
-    const address = await server.listen();
+    const address = await app.listen();
 
     const options = {
-        input: file,
+        input: FILE,
         onwarn: () => {
             // Supress logging
         },
@@ -52,13 +53,14 @@ tap.test('plugin() - import map fetched from a URL', async (t) => {
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'import maps from urls');
-    await server.close();
+    await app.close();
     t.end();
 });
 
 tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
-    const server = fastify();
-    server.get('/one', (request, reply) => {
+    const app = fastify();
+    app.server.keepAliveTimeout = 20;
+    app.get('/one', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
@@ -67,7 +69,7 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
             },
         });
     });
-    const address = await server.listen();
+    const address = await app.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
@@ -81,7 +83,7 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
     }));
 
     const options = {
-        input: file,
+        input: FILE,
         onwarn: () => {
             // Supress logging
         },
@@ -92,14 +94,15 @@ tap.test('plugin() - import map fetched from a URL via eik.json', async (t) => {
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'eik.json import-map string');
-    await server.close();
+    await app.close();
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
 
 tap.test('plugin() - Import map defined through constructor "maps" argument take precedence over import map defined in eik.json', async (t) => {
-    const server = fastify();
-    server.get('/one', (request, reply) => {
+    const app = fastify();
+    app.server.keepAliveTimeout = 20;
+    app.get('/one', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v1',
@@ -107,7 +110,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
         });
     });
 
-    const address = await server.listen();
+    const address = await app.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
@@ -121,7 +124,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
     }));
 
     const options = {
-        input: file,
+        input: FILE,
         onwarn: () => {
             // Supress logging
         },
@@ -138,14 +141,15 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
-    await server.close();
+    await app.close();
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
 
 tap.test('plugin() - Import map defined through constructor "urls" argument take precedence over import map defined in eik.json', async (t) => {
-    const server = fastify();
-    server.get('/one', (request, reply) => {
+    const app = fastify();
+    app.server.keepAliveTimeout = 20;
+    app.get('/one', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v1',
@@ -153,7 +157,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
         });
     });
 
-    server.get('/two', (request, reply) => {
+    app.get('/two', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
@@ -161,7 +165,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
         });
     });
 
-    const address = await server.listen();
+    const address = await app.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
@@ -175,7 +179,7 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
     }));
 
     const options = {
-        input: file,
+        input: FILE,
         onwarn: () => {
             // Supress logging
         },
@@ -190,14 +194,15 @@ tap.test('plugin() - Import map defined through constructor "urls" argument take
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
-    await server.close();
+    await app.close();
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
 
 tap.test('plugin() - Import map defined through constructor "maps" argument take precedence over import map defined through constructor "urls" argument', async (t) => {
-    const server = fastify();
-    server.get('/one', (request, reply) => {
+    const app = fastify();
+    app.server.keepAliveTimeout = 20;
+    app.get('/one', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v0',
@@ -205,7 +210,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
         });
     });
 
-    server.get('/two', (request, reply) => {
+    app.get('/two', (request, reply) => {
         reply.send({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v1',
@@ -213,7 +218,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
         });
     });
 
-    const address = await server.listen();
+    const address = await app.listen();
 
     await fs.promises.writeFile(path.join(process.cwd(), 'eik.json'), JSON.stringify({
         name: 'test',
@@ -227,7 +232,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
     }));
 
     const options = {
-        input: file,
+        input: FILE,
         onwarn: () => {
             // Supress logging
         },
@@ -247,7 +252,7 @@ tap.test('plugin() - Import map defined through constructor "maps" argument take
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'Should rewrite import statement to https://cdn.eik.dev/lit-element/v2');
-    await server.close();
+    await app.close();
     await fs.promises.unlink(path.join(process.cwd(), 'eik.json'));
     t.end();
 });
