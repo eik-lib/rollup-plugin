@@ -56,7 +56,7 @@
     "tap": "15.1.6"
   },
   "dependencies": {
-    "@eik/common": "3.0.0",
+    "@eik/common": "3.0.1",
     "undici": "5.1.1",
     "rollup-plugin-import-map": "2.2.2"
   }
