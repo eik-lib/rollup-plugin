@@ -52,7 +52,7 @@
     "eslint-plugin-import": "2.26.0",
     "fastify": "3.29.2",
     "rollup": "2.75.7",
-    "semantic-release": "19.0.3",
+    "semantic-release": "19.0.5",
     "tap": "16.2.0"
   },
   "dependencies": {
