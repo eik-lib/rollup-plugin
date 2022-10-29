@@ -1,3 +1,10 @@
+## [4.0.35](https://github.com/eik-lib/rollup-plugin/compare/v4.0.34...v4.0.35) (2022-10-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency rollup-plugin-import-map to v3 ([#122](https://github.com/eik-lib/rollup-plugin/issues/122)) ([399adde](https://github.com/eik-lib/rollup-plugin/commit/399adde9278762aa5e09b11f474e7cd7821ff2a7))
+
 ## [4.0.34](https://github.com/eik-lib/rollup-plugin/compare/v4.0.33...v4.0.34) (2022-10-10)
 
 
