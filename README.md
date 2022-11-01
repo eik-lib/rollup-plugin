@@ -142,6 +142,7 @@ This plugin takes an [import map](https://github.com/WICG/import-maps) as option
 | path    | `cwd/eik.json` | `string` | `false`  | Path to eik.json file.                                      |
 | urls    | `[]`           | `array`  | `false`  | Array of import map URLs to fetch from.                     |
 | maps    | `[]`           | `array`  | `false`  | Array of import map as objects.                             |
+| base    | ``             | `string` | `false`  | Base URL to be applied when parsing the import map.         |
 
 ## Note on the rollup external option
 

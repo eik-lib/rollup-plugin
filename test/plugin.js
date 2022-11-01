@@ -46,6 +46,7 @@ tap.test('plugin() - import map fetched from a URL', async (t) => {
                 },
             }],
             urls: [`${address}/one`, `${address}/two`],
+            base: 'https://cdn.eik.dev',
         })],
     };
 
