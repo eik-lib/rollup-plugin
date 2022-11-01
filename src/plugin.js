@@ -49,7 +49,7 @@ export default function eikPlugin({
             // Fetch import maps from the server
             const fetched = await fetchImportMaps([...config.map, ...pUrls]);
 
-            const pBase = (base === '') ? config.server : base; 
+            const pBase = (base === '') ? config.server : base;
 
             plugin = importMapPlugin(pBase, [...fetched, ...pMaps]);
             await plugin.buildStart(options);
