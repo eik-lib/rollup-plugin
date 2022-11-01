@@ -29,10 +29,11 @@ const fetchImportMaps = async (urls = []) => {
     }
 };
 
-export default function esmImportToUrl({
+export default function eikPlugin({
     path = process.cwd(),
     maps = [],
     urls = [],
+    base = '',
 } = {}) {
     const pMaps = Array.isArray(maps) ? maps : [maps];
     const pUrls = Array.isArray(urls) ? urls : [urls];
@@ -48,7 +49,9 @@ export default function esmImportToUrl({
             // Fetch import maps from the server
             const fetched = await fetchImportMaps([...config.map, ...pUrls]);
 
-            plugin = importMapPlugin([...fetched, ...pMaps]);
+            const pBase = (base === '') ? config.server : base;
+
+            plugin = importMapPlugin(pBase, [...fetched, ...pMaps]);
             await plugin.buildStart(options);
         },
 
