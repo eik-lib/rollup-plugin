@@ -45,7 +45,7 @@
   },
   "homepage": "https://github.com/eik-lib/rollup-plugin#readme",
   "devDependencies": {
-    "@semantic-release/changelog": "6.0.1",
+    "@semantic-release/changelog": "6.0.2",
     "@semantic-release/git": "10.0.1",
     "eslint": "8.24.0",
     "eslint-config-airbnb-base": "15.0.0",
