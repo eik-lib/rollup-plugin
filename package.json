@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@eik/common": "3.0.1",
-    "undici": "5.20.0",
+    "undici": "5.21.0",
     "rollup-plugin-import-map": "3.0.0"
   }
 }
