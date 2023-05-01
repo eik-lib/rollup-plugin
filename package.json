@@ -47,9 +47,9 @@
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",
-    "eslint": "8.31.0",
+    "eslint": "8.39.0",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.27.5",
     "fastify": "3.29.5",
     "rollup": "3.21.2",
     "semantic-release": "19.0.5",
