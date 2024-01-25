@@ -44,16 +44,27 @@ export default function esmImportToUrl({
         async buildStart(options) {
             // Load eik config from eik.json or package.json
             const config = await helpers.getDefaults(path);
+            this.debug(`Loaded eik config ${JSON.stringify(config, null, 2)}`);
 
             // Fetch import maps from the server
-            const fetched = await fetchImportMaps([...config.map, ...pUrls]);
-
-            plugin = importMapPlugin([...fetched, ...pMaps]);
-            await plugin.buildStart(options);
+            try {
+                const fetched = await fetchImportMaps([...config.map, ...pUrls]);
+                for (const map of fetched) {
+                    this.debug(`Fetched import map ${JSON.stringify(map, null, 2)}`);
+                }
+                plugin = importMapPlugin([...fetched, ...pMaps]);
+                await plugin.buildStart(options);
+            } catch (err) {
+                this.error(err.message);
+            }
         },
 
         resolveId(importee) {
-            return plugin.resolveId(importee);
+            const resolved = plugin.resolveId(importee);
+            if (resolved) {
+                this.debug(`Resolved ${importee} to ${resolved.id}`);
+            }
+            return resolved;
         },
     };
 }
