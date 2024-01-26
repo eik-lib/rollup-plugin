@@ -1,3 +1,10 @@
+## [4.0.61](https://github.com/eik-lib/rollup-plugin/compare/v4.0.60...v4.0.61) (2024-01-26)
+
+
+### Bug Fixes
+
+* add some debug level logging ([#183](https://github.com/eik-lib/rollup-plugin/issues/183)) ([2853452](https://github.com/eik-lib/rollup-plugin/commit/2853452951559f04d8e5386cb07873f998a979cf))
+
 ## [4.0.60](https://github.com/eik-lib/rollup-plugin/compare/v4.0.59...v4.0.60) (2023-12-04)
 
 
