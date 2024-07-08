@@ -30,6 +30,8 @@ lib-cov
 coverage
 *.lcov
 
+.tap
+
 # nyc test coverage
 .nyc_output
 

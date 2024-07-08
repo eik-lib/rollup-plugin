@@ -19,8 +19,7 @@
   },
   "scripts": {
     "prepare": "npm run -s build",
-    "test": "tap --no-coverage",
-    "test:snapshot": "TAP_SNAPSHOT=1 tap --no-coverage",
+    "test": "tap --disable-coverage --allow-empty-coverage",
     "lint": "eslint . --ext=js",
     "lint:fix": "eslint . --fix --ext=js",
     "start": "node --experimental-modules ./example/server.mjs",
