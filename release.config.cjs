@@ -1,27 +1,27 @@
 module.exports = {
   plugins: [
-    '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
-    '@semantic-release/changelog',
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
     [
-      '@semantic-release/npm',
+      "@semantic-release/npm",
       {
-        tarballDir: 'release',
+        tarballDir: "release",
       },
     ],
     [
-      '@semantic-release/github',
+      "@semantic-release/github",
       {
-        assets: 'release/*.tgz',
+        assets: "release/*.tgz",
       },
     ],
-    '@semantic-release/git',
+    "@semantic-release/git",
   ],
-  preset: 'angular',
+  preset: "angular",
   branches: [
-    { name: 'master' },
-    { name: 'alpha', prerelease: true },
-    { name: 'beta', prerelease: true },
-    { name: 'next', prerelease: true },
+    { name: "main" },
+    { name: "alpha", prerelease: true },
+    { name: "beta", prerelease: true },
+    { name: "next", prerelease: true },
   ],
 };
