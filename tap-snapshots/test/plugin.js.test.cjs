@@ -11,13 +11,19 @@ import { css } from 'lit-html';
 import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
-    static get styles() {
-        return [css\`:host { color: red; }\`];
-    }
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
 
-    render(world) {
-        return html\`<p>Hello \${world}!</p>\`;
-    }
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
 }
 
 export { Inner as default };
@@ -30,13 +36,19 @@ import { css } from 'lit-html';
 import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
-    static get styles() {
-        return [css\`:host { color: red; }\`];
-    }
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
 
-    render(world) {
-        return html\`<p>Hello \${world}!</p>\`;
-    }
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
 }
 
 export { Inner as default };
@@ -49,13 +61,19 @@ import { css } from 'lit-html';
 import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
-    static get styles() {
-        return [css\`:host { color: red; }\`];
-    }
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
 
-    render(world) {
-        return html\`<p>Hello \${world}!</p>\`;
-    }
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
 }
 
 export { Inner as default };
@@ -68,13 +86,19 @@ import { css } from 'https://cdn.eik.dev/lit-html/v1';
 import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
-    static get styles() {
-        return [css\`:host { color: red; }\`];
-    }
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
 
-    render(world) {
-        return html\`<p>Hello \${world}!</p>\`;
-    }
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
 }
 
 export { Inner as default };
@@ -87,13 +111,19 @@ import { css } from 'https://cdn.eik.dev/lit-html/v1';
 import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
-    static get styles() {
-        return [css\`:host { color: red; }\`];
-    }
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
 
-    render(world) {
-        return html\`<p>Hello \${world}!</p>\`;
-    }
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
 }
 
 export { Inner as default };
