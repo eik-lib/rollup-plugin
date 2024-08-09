@@ -1,3 +1,10 @@
+## [4.0.64](https://github.com/eik-lib/rollup-plugin/compare/v4.0.63...v4.0.64) (2024-08-09)
+
+
+### Bug Fixes
+
+* include type definitions ([3aa898f](https://github.com/eik-lib/rollup-plugin/commit/3aa898fafeb64bcfc798f2267d2e5c0f2c782b45))
+
 ## [4.0.63](https://github.com/eik-lib/rollup-plugin/compare/v4.0.62...v4.0.63) (2024-04-04)
 
 
