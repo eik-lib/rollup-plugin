@@ -18,6 +18,7 @@
     "types"
   ],
   "scripts": {
+    "clean": "rimraf .tap dist node_modules types",
     "prepare": "npm run -s build",
     "test": "tap --disable-coverage --allow-empty-coverage",
     "lint": "eslint .",
