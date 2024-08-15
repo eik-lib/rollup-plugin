@@ -1,14 +1,23 @@
 import { rollup } from "rollup";
-import { URL } from "node:url";
+import { fileURLToPath } from "node:url";
 import fastify from "fastify";
-import path from "node:path";
+import path, { dirname } from "node:path";
 import tap from "tap";
 import fs from "node:fs";
 
 import plugin from "../src/plugin.js";
 
-const FILE = new URL("../fixtures/modules/file/main.js", import.meta.url)
-	.pathname;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const FILE = path.resolve(
+	__dirname,
+	"..",
+	"fixtures",
+	"modules",
+	"file",
+	"main.js",
+);
 
 /*
  * When running tests on Windows, the output code get some extra \r on each line.
@@ -33,7 +42,14 @@ tap.test("plugin() - import map fetched from a URL", async (t) => {
 			},
 		});
 	});
-	const address = await app.listen();
+	const address = await app.listen({
+		host: "0.0.0.0",
+		port: 50253,
+	});
+
+	t.after(async () => {
+		await app.close();
+	});
 
 	const options = {
 		input: FILE,
@@ -58,7 +74,6 @@ tap.test("plugin() - import map fetched from a URL", async (t) => {
 	const { output } = await bundle.generate({ format: "esm" });
 
 	t.matchSnapshot(clean(output[0].code), "import maps from urls");
-	await app.close();
 	t.end();
 });
 
@@ -74,7 +89,10 @@ tap.test("plugin() - import map fetched from a URL via eik.json", async (t) => {
 			},
 		});
 	});
-	const address = await app.listen();
+	const address = await app.listen({
+		host: "0.0.0.0",
+		port: 50253,
+	});
 
 	await fs.promises.writeFile(
 		path.join(process.cwd(), "eik.json"),
@@ -90,6 +108,11 @@ tap.test("plugin() - import map fetched from a URL via eik.json", async (t) => {
 		}),
 	);
 
+	t.after(async () => {
+		await app.close();
+		await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
+	});
+
 	const options = {
 		input: FILE,
 		onwarn: () => {
@@ -102,8 +125,6 @@ tap.test("plugin() - import map fetched from a URL via eik.json", async (t) => {
 	const { output } = await bundle.generate({ format: "esm" });
 
 	t.matchSnapshot(clean(output[0].code), "eik.json import-map string");
-	await app.close();
-	await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
 	t.end();
 });
 
@@ -120,7 +141,10 @@ tap.test(
 			});
 		});
 
-		const address = await app.listen();
+		const address = await app.listen({
+			host: "0.0.0.0",
+			port: 50253,
+		});
 
 		await fs.promises.writeFile(
 			path.join(process.cwd(), "eik.json"),
@@ -135,6 +159,11 @@ tap.test(
 				"import-map": `${address}/one`,
 			}),
 		);
+
+		t.after(async () => {
+			await app.close();
+			await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
+		});
 
 		const options = {
 			input: FILE,
@@ -161,8 +190,6 @@ tap.test(
 			clean(output[0].code),
 			"Should rewrite import statement to https://cdn.eik.dev/lit-element/v2",
 		);
-		await app.close();
-		await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
 		t.end();
 	},
 );
@@ -188,7 +215,10 @@ tap.test(
 			});
 		});
 
-		const address = await app.listen();
+		const address = await app.listen({
+			host: "0.0.0.0",
+			port: 50253,
+		});
 
 		await fs.promises.writeFile(
 			path.join(process.cwd(), "eik.json"),
@@ -203,6 +233,11 @@ tap.test(
 				"import-map": `${address}/one`,
 			}),
 		);
+
+		t.after(async () => {
+			await app.close();
+			await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
+		});
 
 		const options = {
 			input: FILE,
@@ -223,8 +258,6 @@ tap.test(
 			clean(output[0].code),
 			"Should rewrite import statement to https://cdn.eik.dev/lit-element/v2",
 		);
-		await app.close();
-		await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
 		t.end();
 	},
 );
@@ -250,7 +283,10 @@ tap.test(
 			});
 		});
 
-		const address = await app.listen();
+		const address = await app.listen({
+			host: "0.0.0.0",
+			port: 50253,
+		});
 
 		await fs.promises.writeFile(
 			path.join(process.cwd(), "eik.json"),
@@ -265,6 +301,11 @@ tap.test(
 				"import-map": `${address}/one`,
 			}),
 		);
+
+		t.after(async () => {
+			await app.close();
+			await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
+		});
 
 		const options = {
 			input: FILE,
@@ -292,8 +333,6 @@ tap.test(
 			clean(output[0].code),
 			"Should rewrite import statement to https://cdn.eik.dev/lit-element/v2",
 		);
-		await app.close();
-		await fs.promises.unlink(path.join(process.cwd(), "eik.json"));
 		t.end();
 	},
 );
