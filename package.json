@@ -63,7 +63,7 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@eik/common": "3.0.1",
+    "@eik/common": "4.1.1",
     "rollup-plugin-import-map": "3.0.0",
     "undici": "5.28.4"
   }
