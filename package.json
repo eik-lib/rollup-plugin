@@ -52,7 +52,7 @@
     "@eik/prettier-config": "1.0.1",
     "@eik/semantic-release-config": "1.0.0",
     "@eik/typescript-config": "1.0.0",
-    "eslint": "9.9.1",
+    "eslint": "9.11.1",
     "fastify": "4.28.1",
     "npm-run-all2": "5.0.2",
     "prettier": "3.3.3",
