@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/eik-lib/rollup-plugin#readme",
   "devDependencies": {
-    "@eik/eslint-config": "1.0.2",
+    "@eik/eslint-config": "1.0.4",
     "@eik/prettier-config": "1.0.1",
     "@eik/semantic-release-config": "1.0.0",
     "@eik/typescript-config": "1.0.0",
