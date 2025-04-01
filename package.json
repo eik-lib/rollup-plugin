@@ -50,7 +50,7 @@
   "devDependencies": {
     "@eik/eslint-config": "1.0.12",
     "@eik/prettier-config": "1.0.1",
-    "@eik/semantic-release-config": "1.0.0",
+    "@eik/semantic-release-config": "1.0.2",
     "@eik/typescript-config": "1.0.0",
     "eslint": "9.21.0",
     "fastify": "4.28.1",
