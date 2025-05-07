@@ -1,3 +1,10 @@
+## [4.0.67](https://github.com/eik-lib/rollup-plugin/compare/v4.0.66...v4.0.67) (2025-05-07)
+
+
+### Bug Fixes
+
+* improve logging for non-JSON responses ([#232](https://github.com/eik-lib/rollup-plugin/issues/232)) ([27004b0](https://github.com/eik-lib/rollup-plugin/commit/27004b0fe9c043a8fbfe441d1426e12425bd0584))
+
 ## [4.0.66](https://github.com/eik-lib/rollup-plugin/compare/v4.0.65...v4.0.66) (2025-03-24)
 
 
