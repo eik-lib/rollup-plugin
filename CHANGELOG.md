@@ -1,3 +1,10 @@
+## [4.0.68](https://github.com/eik-lib/rollup-plugin/compare/v4.0.67...v4.0.68) (2025-05-07)
+
+
+### Bug Fixes
+
+* fixing redirect issue with node v24 ([#233](https://github.com/eik-lib/rollup-plugin/issues/233)) ([8bc43ca](https://github.com/eik-lib/rollup-plugin/commit/8bc43caa1188d1bc3ec4107776908d9760498c47))
+
 ## [4.0.67](https://github.com/eik-lib/rollup-plugin/compare/v4.0.66...v4.0.67) (2025-05-07)
 
 
