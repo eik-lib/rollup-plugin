@@ -77,6 +77,70 @@ tap.test("plugin() - import map fetched from a URL", async (t) => {
 	t.end();
 });
 
+tap.test(
+	"plugin() - import map fetched from a URL with a redirect",
+	async (t) => {
+		const app = fastify();
+		app.server.keepAliveTimeout = 20;
+		app.get("/one", (request, reply) => {
+			reply.header("location", "http://0.0.0.0:50253/two"); //lit-element/v2");
+			reply.header("content-type", "text/plain");
+			reply.status(302);
+			reply.send("");
+		});
+		app.get("/two", (request, reply) => {
+			reply.header("location", "http://0.0.0.0:50253/lit-element/v2");
+			reply.header("content-type", "text/plain");
+			reply.status(302);
+			reply.send("");
+		});
+		app.get("/lit-element/v2", (request, reply) => {
+			reply.header("content-type", "application/json");
+			reply.send({
+				imports: {
+					"lit-html": "https://cdn.eik.dev/lit-element/2.2.2/file.js",
+				},
+			});
+		});
+		const address = await app.listen({
+			host: "0.0.0.0",
+			port: 50253,
+		});
+
+		t.after(async () => {
+			await app.close();
+		});
+
+		const options = {
+			input: FILE,
+			onwarn: () => {
+				// Supress logging
+			},
+			plugins: [
+				plugin({
+					maps: [
+						{
+							imports: {
+								"lit-html/lit-element": "https://cdn.eik.dev/lit-element/v2",
+							},
+						},
+					],
+					urls: [`${address}/one`],
+				}),
+			],
+		};
+
+		const bundle = await rollup(options);
+		const { output } = await bundle.generate({ format: "esm" });
+
+		t.matchSnapshot(
+			clean(output[0].code),
+			"import maps from urls with redirects",
+		);
+		t.end();
+	},
+);
+
 tap.test("plugin() - import map fetched from a URL via eik.json", async (t) => {
 	const app = fastify();
 	app.server.keepAliveTimeout = 20;
