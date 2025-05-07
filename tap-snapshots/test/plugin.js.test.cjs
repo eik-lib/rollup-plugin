@@ -129,3 +129,28 @@ class Inner extends LitElement {
 export { Inner as default };
 
 `
+
+exports[`test/plugin.js > TAP > plugin() - import map fetched from a URL with a redirect > import maps from urls with redirects 1`] = `
+import { html } from 'lit-html/lit-html';
+import { css } from 'https://cdn.eik.dev/lit-element/2.2.2/file.js';
+import { LitElement } from 'lit-element';
+
+class Inner extends LitElement {
+  static get styles() {
+    return [
+      css\`
+        :host {
+          color: red;
+        }
+      \`,
+    ];
+  }
+
+  render(world) {
+    return html\`<p>Hello \${world}!</p>\`;
+  }
+}
+
+export { Inner as default };
+
+`

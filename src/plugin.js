@@ -1,6 +1,6 @@
 import { rollupImportMapPlugin as importMapPlugin } from "rollup-plugin-import-map";
+import { request, Agent, interceptors } from "undici";
 import { helpers } from "@eik/common";
-import { request } from "undici";
 
 /**
  * @typedef {object} ImportMap
@@ -9,13 +9,19 @@ import { request } from "undici";
 
 /**
  * @param {string[]} urls
+ * @param {object} options
+ * @param {number} options.maxRedirections - undici option for limiting redirects
  * @returns {Promise<ImportMap[]>}
  */
-const fetchImportMaps = async (urls = []) => {
+const fetchImportMaps = async (urls = [], options) => {
 	try {
 		const maps = urls.map(async (map) => {
 			const response = await request(map, {
-				maxRedirections: 2,
+				dispatcher: new Agent().compose(
+					interceptors.redirect({
+						maxRedirections: options.maxRedirections,
+					}),
+				),
 			});
 
 			if (response.statusCode === 404) {
@@ -32,9 +38,13 @@ const fetchImportMaps = async (urls = []) => {
 			if (!contentType.find((type) => type.startsWith("application/json"))) {
 				const content = await response.body.text();
 				if (content.length === 0) {
-					throw new Error(`${map} did not return JSON, got an empty response`);
+					throw new Error(
+						`${map} did not return JSON, got an empty response. HTTP status: ${response.statusCode}`,
+					);
 				}
-				throw new Error(`${map} did not return JSON, got: ${content}`);
+				throw new Error(
+					`${map} did not return JSON, got: ${content}. HTTP status: ${response.statusCode}`,
+				);
 			}
 
 			const json = await response.body.json();
@@ -53,6 +63,7 @@ const fetchImportMaps = async (urls = []) => {
  * @property {string} [path=process.cwd()] Path to `eik.json`.
  * @property {string[]} [urls=[]] URLs to import maps hosted on an Eik server. Takes precedence over `eik.json`.
  * @property {ImportMap[]} [maps=[]] Inline import maps that should be used. Takes precedence over `urls` and `eik.json`.
+ * @property {number} [maxRedirections=2] Maximum number of redirects when looking up URLs.
  */
 
 /**
@@ -70,6 +81,7 @@ export default function esmImportToUrl({
 	path = process.cwd(),
 	maps = [],
 	urls = [],
+	maxRedirections = 2,
 } = {}) {
 	const pMaps = Array.isArray(maps) ? maps : [maps];
 	const pUrls = Array.isArray(urls) ? urls : [urls];
@@ -89,7 +101,9 @@ export default function esmImportToUrl({
 
 			// Fetch import maps from the server
 			try {
-				const fetched = await fetchImportMaps([...config.map, ...pUrls]);
+				const fetched = await fetchImportMaps([...config.map, ...pUrls], {
+					maxRedirections,
+				});
 				for (const map of fetched) {
 					this.debug(`Fetched import map ${JSON.stringify(map, null, 2)}`);
 				}
