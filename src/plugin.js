@@ -14,18 +14,31 @@ import { request } from "undici";
 const fetchImportMaps = async (urls = []) => {
 	try {
 		const maps = urls.map(async (map) => {
-			const { statusCode, body } = await request(map, {
+			const response = await request(map, {
 				maxRedirections: 2,
 			});
 
-			if (statusCode === 404) {
+			if (response.statusCode === 404) {
 				throw new Error("Import map could not be found on server");
-			} else if (statusCode >= 400 && statusCode < 500) {
+			} else if (response.statusCode >= 400 && response.statusCode < 500) {
 				throw new Error("Server rejected client request");
-			} else if (statusCode >= 500) {
+			} else if (response.statusCode >= 500) {
 				throw new Error("Server error");
 			}
-			return /** @type {Promise<ImportMap>} */ (body.json());
+
+			let contentType = response.headers["content-type"];
+			if (!Array.isArray(contentType)) contentType = [contentType];
+
+			if (!contentType.find((type) => type.startsWith("application/json"))) {
+				const content = await response.body.text();
+				if (content.length === 0) {
+					throw new Error(`${map} did not return JSON, got an empty response`);
+				}
+				throw new Error(`${map} did not return JSON, got: ${content}`);
+			}
+
+			const json = await response.body.json();
+			return /** @type {ImportMap}*/ (json);
 		});
 		return await Promise.all(maps);
 	} catch (err) {
