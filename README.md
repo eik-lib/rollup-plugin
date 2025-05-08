@@ -143,12 +143,11 @@ import { LitElement, html, css } from "https://cdn.eik.dev/lit-element/v2";
 
 This plugin takes an [import map](https://github.com/WICG/import-maps) as options:
 
-| option            | default        | type       | required   | details                                                  |
-|-------------------|----------------|------------|------------|----------------------------------------------------------|
-| path              | `cwd/eik.json` | `string`   | `false`    | Path to eik.json file.                                   |
-| urls              | `[]`           | `array`    | `false`    | Array of import map URLs to fetch from.                  |
-| maps              | `[]`           | `array`    | `false`    | Array of import map as objects.                          |
-| maxRedirections   | `2`            | `number`   | `false`    | Maximum number of redirects when retrieving import maps. |
+| option | default        | type     | required | details                                 |
+| ------ | -------------- | -------- | -------- | --------------------------------------- |
+| path   | `cwd/eik.json` | `string` | `false`  | Path to eik.json file.                  |
+| urls   | `[]`           | `array`  | `false`  | Array of import map URLs to fetch from. |
+| maps   | `[]`           | `array`  | `false`  | Array of import map as objects.         |
 
 ## Note on the rollup external option
 
