@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/eik-lib/rollup-plugin/compare/v4.0.68...v5.0.0) (2025-05-08)
+
+
+### Bug Fixes
+
+* update eik/common to use shared fetchImportMap ([#234](https://github.com/eik-lib/rollup-plugin/issues/234)) ([78d25cd](https://github.com/eik-lib/rollup-plugin/commit/78d25cdb12ca9d16b3001c410fd190611a643ce6))
+
+
+### BREAKING CHANGES
+
+* The option maxRedirections was removed.
+Drop support for Node 18.
+
 ## [4.0.68](https://github.com/eik-lib/rollup-plugin/compare/v4.0.67...v4.0.68) (2025-05-07)
 
 
