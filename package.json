@@ -1,6 +1,6 @@
 {
   "name": "@eik/rollup-plugin",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "Rollup plugin for loading import maps from a Eik server and applying the mapping to ECMAScript modules in preparation for upload to the same server.",
   "type": "module",
   "main": "./dist/plugin.cjs",
