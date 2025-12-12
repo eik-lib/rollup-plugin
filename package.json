@@ -50,17 +50,17 @@
   "devDependencies": {
     "@eik/eslint-config": "1.0.23",
     "@eik/prettier-config": "1.0.1",
-    "@eik/semantic-release-config": "1.0.9",
+    "@eik/semantic-release-config": "1.0.10",
     "@eik/typescript-config": "1.0.0",
     "@types/node": "24.10.1",
     "eslint": "9.39.1",
     "fastify": "5.6.2",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "rimraf": "6.1.2",
     "rollup": "4.53.3",
     "semantic-release": "25.0.2",
-    "tap": "21.4.0",
+    "tap": "21.5.0",
     "typescript": "5.9.3"
   },
   "dependencies": {
