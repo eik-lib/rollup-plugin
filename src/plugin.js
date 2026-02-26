@@ -66,6 +66,10 @@ export default function esmImportToUrl({
 		 * @param {string} [importee]
 		 */
 		resolveId(importee) {
+      if (!plugin) {
+        // tsdown in 'dts' mode won't have started the build yet when it could hit 'resolveId'
+        return null
+      }
 			const resolved = plugin.resolveId(importee);
 			if (resolved) {
 				this.debug(`Resolved ${importee} to ${resolved.id}`);
