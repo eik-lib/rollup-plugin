@@ -1,3 +1,10 @@
+## [5.0.29](https://github.com/eik-lib/rollup-plugin/compare/v5.0.28...v5.0.29) (2026-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency undici to v7.24.5 ([#288](https://github.com/eik-lib/rollup-plugin/issues/288)) ([c1a2519](https://github.com/eik-lib/rollup-plugin/commit/c1a2519532b77d6294c8a10205741e4bfb7f2cc2))
+
 ## [5.0.28](https://github.com/eik-lib/rollup-plugin/compare/v5.0.27...v5.0.28) (2026-03-16)
 
 
