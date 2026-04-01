@@ -51,7 +51,7 @@
     "@eik/eslint-config": "1.0.25",
     "@eik/prettier-config": "1.0.1",
     "@eik/semantic-release-config": "1.0.15",
-    "@eik/typescript-config": "1.0.0",
+    "@eik/typescript-config": "1.0.1",
     "@types/node": "24.10.1",
     "eslint": "9.39.1",
     "fastify": "5.8.3",
