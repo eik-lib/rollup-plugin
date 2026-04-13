@@ -1,3 +1,10 @@
+## [5.0.33](https://github.com/eik-lib/rollup-plugin/compare/v5.0.32...v5.0.33) (2026-04-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @eik/common to v5.1.24 ([#296](https://github.com/eik-lib/rollup-plugin/issues/296)) ([3877671](https://github.com/eik-lib/rollup-plugin/commit/387767196507da7c07e830636c992708adf63a84))
+
 ## [5.0.32](https://github.com/eik-lib/rollup-plugin/compare/v5.0.31...v5.0.32) (2026-04-06)
 
 
