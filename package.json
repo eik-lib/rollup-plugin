@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:eik-lib/rollup-plugin.git"
+    "url": "git+https://github.com/eik-lib/rollup-plugin.git"
   },
   "keywords": [
     "rollup-plugin",
