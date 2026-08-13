@@ -1,4 +1,9 @@
 {
   "extends": "@eik/typescript-config/test.json",
-  "include": ["./test/**/*.js"]
+  "include": ["./test/**/*.js"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "types": ["node"],
+    "noImplicitAny": false
+  }
 }
