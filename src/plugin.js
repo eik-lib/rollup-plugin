@@ -31,6 +31,7 @@ export default function esmImportToUrl({
 } = {}) {
 	const pMaps = Array.isArray(maps) ? maps : [maps];
 	const pUrls = Array.isArray(urls) ? urls : [urls];
+	/** @type {any} */
 	let plugin;
 
 	return {
@@ -57,7 +58,7 @@ export default function esmImportToUrl({
 				plugin = importMapPlugin([...fetched, ...pMaps]);
 				await plugin.buildStart(options);
 			} catch (err) {
-				this.error(err.message);
+				this.error(err instanceof Error ? err.message : String(err));
 			}
 		},
 
